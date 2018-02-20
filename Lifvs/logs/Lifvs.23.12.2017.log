@@ -1,0 +1,18 @@
+2017-12-23 11:13:45,132 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 11:48:23,298 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 12:04:59,848 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 13:03:59,017 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 15:22:27,912 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 15:57:26,345 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 18:39:29,226 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:04:00,238 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:07:21,826 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:11:12,647 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:13:07,100 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:18:45,981 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:30:26,213 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:31:37,483 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-23 19:32:07,984 ERROR Lifvs - Following error occured while removing employee. Error: The DELETE statement conflicted with the REFERENCE constraint "FK_WebUserInvitation_WebUser". The conflict occurred in database "Lifvs", table "dbo.WebUserInvitation", column 'UserId'.
+The statement has been terminated.
+2017-12-23 19:33:23,744 ERROR Lifvs - Following error occured while removing employee. Error: The DELETE statement conflicted with the REFERENCE constraint "FK_WebUserInvitation_WebUser". The conflict occurred in database "Lifvs", table "dbo.WebUserInvitation", column 'UserId'.
+The statement has been terminated.

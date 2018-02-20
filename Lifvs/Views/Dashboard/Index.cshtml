@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Main View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnSendNotifications" value="Send Notification" class="btn btn-primary btn-block " id="btnSendNotification" />
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnUsers" value="Users" class="btn btn-primary btn-block" id="btnUsers" />
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnEmployees" id="btnEmployees" value="Employees" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnStore" id="btnStore" value="Store" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnInventory" id="btnInventory" value="Inventory" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnStoreInventory" id="btnStoreInventory" value="Store Inventory" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-md-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnSales" id="btnSales" value="Sales" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#btnEmployees").click(function () {
+        window.location.href = '@Url.Action("Index","Employee")';
+    });
+
+    $("#btnUsers").click(function () {
+        window.location.href = '@Url.Action("Index","Users")';
+    });
+
+    $("#btnStore").click(function () {
+        window.location.href = '@Url.Action("Index","Stores")';
+    });
+
+    $("#btnInventory").click(function () {
+        window.location.href = '@Url.Action("Index", "InventoryWeb")';
+    });
+
+    $("#btnStoreInventory").click(function () {
+        window.location.href = '@Url.Action("Stores", "StoreInventory")';
+    });
+    $("#btnSales").click(function () {
+        window.location.href = '@Url.Action("Stores","Sales")';
+    });
+</script>

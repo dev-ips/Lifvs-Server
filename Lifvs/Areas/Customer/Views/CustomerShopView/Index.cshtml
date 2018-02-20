@@ -1,0 +1,272 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var storeId = Session["StoreId"];
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("Cart")
+<div class="row">
+    <div class="col-sm-1 col-xs-1">
+        
+    </div>
+
+    <div class="col-sm-2 col-xs-1" style="padding:0;">
+        <span style="font-size:400%;color:red">LIFVS</span> <br />
+        <span style="padding-left: 13%;">Kund vy</span>
+
+        <div class="col-xs-1">
+            <br /><br />
+            <span style="font-size:115%;">Bōrja registrea varor genom att scanna QR koden i appen.</span> <br />
+        </div>
+
+        <div class="col-xs-1">
+            <br />
+            @Html.TextBox("TxtBarCode", null, new { @class = "form-control", @placeholder = "QR Code" })
+        </div>
+
+    </div>
+
+    <div class="col-sm-2 col-xs-1" style="padding:0;">
+    </div>
+
+    <div class="col-sm-5 col-xs-4" style="padding:0;">
+        <div style="text-align:center;">
+            <span style="color:blue;">Receipt</span>
+        </div>
+        <hr />
+        <span style="font-weight:600;">Butik @Session["StoreId"], @DateTime.Now.Date.ToShortDateString()</span> <hr />
+
+        <table class="table" id="tblCartItem"></table>
+        <hr />
+        <div class="col-xs-2" style="text-align:center;">
+            <input type="button" class="btn btn-primary" id="BtnEndShopping" name="BtnEndShopping" value="End Shopping" onclick="EndShopping()" />
+        </div>
+    </div>
+    <div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#TxtBarCode").focus();
+            $.get('@Url.Action("GetAllCartItemCustomerShop", "CustomerShopView")',
+                //{ cartId: cartId },
+                function (response)
+                {
+                    if (response.success)
+                    {
+                        if (response.data != null && response.data.length > 0) {
+                            $("#tblCartItem").empty();
+                            var amount = 0;
+                            $("#Cart").val(response.data[0].CartId);
+
+                            for (var i = 0; i <= response.data.length - 1; i++) {
+                                var htmlContent = "<tr>";
+                                htmlContent += "<td style='border-top:none;width:70%;'>" + response.data[i].InventoryName + "";
+                                htmlContent += "</td>";
+
+                                htmlContent += "<td style='border-top:none;'>" + response.data[i].Amount + "";
+                                htmlContent += "</td>";
+
+                                htmlContent += "<td style='border-top:none;'>";
+                                htmlContent += "<a href='#' onclick='DeleteCartItem(" + response.data[i].Id + ",'@storeId'," + response.data[i].InventoryId + ")'>Delete</a></td>";
+
+                                htmlContent += "</tr>";
+
+                                amount += response.data[i].Amount;
+
+                                $("#tblCartItem").append(htmlContent);
+                            }
+
+                            htmlContent = '';
+
+                            htmlContent += "<tr>";
+                            htmlContent += "<td style='font-weight:600; border-top:none;'>Total";
+                            htmlContent += "</td>";
+
+                            htmlContent += "<td id='total' style='font-weight:600; border-top:none;'>" + amount + " SEK";
+                            htmlContent += "</td>";
+                            htmlContent += "</tr>";
+
+                            $("#tblCartItem").append(htmlContent);
+                            $("#TxtBarCode").focus();
+                        }
+                    }
+                    else {
+                        $("#TxtBarCode").focus();
+                    }
+                    MakePaymentButtonEnable();
+            });
+    });
+
+    $("#TxtBarCode").keydown(function (e) {
+        if (e.keyCode == 13 || e.keyCode == 9) {
+            var code = $("#TxtBarCode").val();
+            $("#TxtBarCode").val('');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddItemInCart","CustomerShopView")',
+                data: JSON.stringify({ inventoryCode: code }),
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'JSON',
+                success: function (response)
+                {
+                    if (response.success)
+                    {
+                        $("#Cart").val(response.data.CartId);
+                        var amount = typeof ($('#total')[0]) == 'undefined' ? 0 : $('#total')[0].innerText.replace(' SEK', '');
+
+                        if (amount > 0)
+                            $('#total').parent('tr').remove();
+
+                        var htmlContent = "<tr>";
+                        htmlContent += "<td style='border-top:none;width:70%;'>" + response.data.InventoryName +"";
+                        htmlContent += "</td>";
+                        htmlContent += "<td style='border-top:none;'>" + response.data.Amount + "";
+                        htmlContent += "</td>";
+                        htmlContent += "<td style='border-top:none;'>";
+                        htmlContent += "<a href='#' onclick='DeleteCartItem(" + response.data.Id + ","+ @storeId +"," + response.data.InventoryId +")'>Delete</a></td>";
+                        htmlContent += "</tr>";
+
+                        htmlContent += "<tr>";
+                        htmlContent += "<td style='font-weight:600; border-top:none;'>Total";
+                        htmlContent += "</td>";
+                        htmlContent += "<td id='total' style='font-weight:600; border-top:none;'>" + ( parseInt(amount) + response.data.Amount ) +" SEK";
+                        htmlContent += "</td>";
+                        htmlContent += "</tr>";
+
+                        $("#tblCartItem").append(htmlContent);
+                        $("#TxtBarCode").focus();
+                    }
+                    else
+                    {
+                        $("#TxtBarCode").focus();
+                    }
+                    MakePaymentButtonEnable();
+                },
+                error: function ()
+                {
+                    MakePaymentButtonEnable();
+                    $("#TxtBarCode").focus();
+                }
+            });
+        }
+    });
+
+
+    function DeleteCartItem(cartItem, storeId, inventoryId)
+    {
+        var cartItemId = $("#Cart").val();
+        var tmpDeleteLink = '@Url.Action("DeleteCartItem","CustomerShopView",new { @itemId = "iItem",@storeId = "sid",@inventoryId = "iid",@cartId = "cid" })';
+        var deleteLink = tmpDeleteLink.replace('iItem', cartItem).replace('sid', storeId).replace('iid', inventoryId).replace('cid',cartItemId);
+
+        $.ajax({
+            type: 'POST',
+            url: deleteLink.replace('&amp;', '&').replace('&amp;', '&').replace('&amp;', '&'),
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'JSON',
+            success: function (response)
+            {
+                if (response.success)
+                {
+
+                    if (response.data != null && response.data.length > 0)
+                    {
+                        $("#tblCartItem").empty();
+                        var amount = 0;
+
+                        for (var i = 0; i <= response.data.length - 1; i++)
+                        {
+                            var htmlContent = "<tr>";
+                            htmlContent += "<td style='border-top:none;width:70%;'>" + response.data[i].InventoryName + "";
+                            htmlContent += "</td>";
+
+                            htmlContent += "<td style='border-top:none;'>" + response.data[i].Amount + "";
+                            htmlContent += "</td>";
+
+                            htmlContent += "<td style='border-top:none;'>";
+                            //htmlContent += "<a href='#' onclick='DeleteCartItem(" + response.data[i].Id + ",1," + response.data[i].InventoryId + ")'>Delete</a></td>";
+                            htmlContent += "<a href='#' onclick='DeleteCartItem(" + response.data[i].Id + ","+ @storeId +"," + response.data[i].InventoryId + ")'>Delete</a></td>";
+
+                            htmlContent += "</tr>";
+
+                            amount += response.data[i].Amount;
+
+                            $("#tblCartItem").append(htmlContent);
+                        }
+
+                        htmlContent = '';
+                        htmlContent += "<tr>";
+
+                        htmlContent += "<td style='font-weight:600; border-top:none;'>Total";
+                        htmlContent += "</td>";
+
+                        htmlContent += "<td id='total' style='font-weight:600; border-top:none;'>" + amount + " SEK";
+                        htmlContent += "</td>";
+                        htmlContent += "</tr>";
+
+                        $("#tblCartItem").append(htmlContent);
+                        $("#TxtBarCode").focus();
+                    }
+                    else {
+                        $("#tblCartItem").empty();
+                        $("#TxtBarCode").focus();
+                    }
+                }
+                MakePaymentButtonEnable();
+            },
+            error: function ()
+            {
+                MakePaymentButtonEnable();
+                $("#TxtBarCode").focus();
+            }
+        });
+    }
+
+    function MakePaymentButtonEnable()
+    {
+        var trCnt = $("#tblCartItem tr").length;
+        if (trCnt > 0) {
+            $("#BtnEndShopping").prop('disabled', false);
+        }
+        else {
+            $("#BtnEndShopping").prop('disabled', true);
+        }
+    }
+
+    function EndShopping()
+    {
+        var trCnt = $("#tblCartItem tr").length;
+        if (trCnt > 0)
+        {
+            $("#BtnEndShopping").prop('disabled', true);
+            $.get('@Url.Action("EndShopping","CustomerShopView")', { cartId: $("#Cart").val() },
+            function (response)
+            {
+                if (response.success)
+                {
+                    alert('Thanks for shopping! Visit again.');
+                    window.location.href = '@Url.Action("Index","Dashboard")';
+                }
+                else if (!response.success)
+                {
+                    alert(response.error);
+                    $("#BtnEndShopping").prop('disabled', false);
+                    $("#TxtBarCode").focus();
+                }
+            });
+        }
+        else
+        {
+            alert('First add item in your cart.');
+            $("#BtnEndShopping").prop('disabled', true);
+            $("#TxtBarCode").focus();
+            return false;
+        }
+    }
+
+</script>
+
+
+

@@ -1,0 +1,140 @@
+﻿@model Lifvs.Common.ApiModels.EmailVerificationResponse
+
+@{
+    Layout = null;
+    var messageType = Model.MessageType.ToLower();
+    var message = Model.Message;
+    if (messageType == "framgång")
+    {
+        messageType = "framgång";
+    }
+    else if (messageType == "fel")
+    {
+        messageType = "fel";
+    }
+    else
+    {
+        messageType = "info";
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta charset="utf-8">
+        <title>@messageType</title>
+    
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Gotham, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 62.5%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #pagewidth {
+            width: 100%;
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 100%;
+            margin: 20px auto 0;
+            max-width: 200px;
+        }
+
+            .logo img {
+                width: 100%;
+            }
+
+        .inst-text {
+            font-size: 1.4rem;
+            text-align: center;
+            color: #004F91;
+            margin: 30px 0;
+        }
+
+        .txt-box {
+            background: none;
+            border: none;
+            border-bottom: 4px solid #80ecda;
+            width: 100%;
+            font-size: 1.2rem;
+            color: #FFFFFF;
+            padding: 5px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .button {
+            width: 100%;
+            margin: 20px 0;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="pagewidth">
+            <div class="logo">
+                <a href="javascript:void(0);"><img src="~/Images/lifvs_logo.png" /></a>
+            </div>
+            <div class="inst-text">
+                @if (messageType == "framgång")
+                {
+                    <p style="color:green">
+                        TACK!
+                    </p>
+                    <br /><br />
+                    <p style="color:green;">
+                        Din emailadress är verifierad, du kan nu använda appen
+                    </p>
+                }
+                @if (messageType == "fel")
+                {
+                    <p style="color:red;">
+                        FEL!
+                    </p>
+                    <br /><br />
+                    <p style="color:red;">
+                        @message
+                    </p>
+                }
+                @if (messageType == "info")
+                {
+                    <p style="color:yellowgreen;">
+                        INFO!
+                    </p>
+                    <br /><br />
+                    <p style="color:yellowgreen;">
+                        @message
+                    </p>
+                }
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+2017-12-20 12:10:09,466 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-20 12:12:36,104 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-20 17:09:14,483 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-20 17:28:57,755 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-20 17:34:57,923 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-20 17:40:01,423 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-20 18:30:35,860 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1;
+2017-12-20 18:32:13,742 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1;
+2017-12-20 18:32:19,058 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1;
+2017-12-20 18:33:09,378 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1;
+2017-12-20 18:55:32,392 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;

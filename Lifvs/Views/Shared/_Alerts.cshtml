@@ -1,0 +1,15 @@
+﻿@using Lifvs.Alerts
+@if (TempData.GetAlerts().Any())
+{
+    <div class="container alert-container" style="width:auto;">
+        @foreach (var alert in TempData.GetAlerts())
+        {
+            <div class="alert @alert.AlertClass alert-dismissable fade-in" role="alert">
+                <button type="button" class="close" data-dissmiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @alert.Message
+            </div>
+        }
+    </div>
+}

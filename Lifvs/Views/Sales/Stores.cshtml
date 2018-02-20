@@ -1,0 +1,38 @@
+﻿@model Lifvs.Common.ApiModels.SalesModel
+@{
+    ViewBag.Title = "Stores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row justify-content-md-center">
+    <div class="col-sm-4">
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Store</label>
+            <div class="col-sm-9">
+                @Html.DropDownListFor(m => m.StoreId, new SelectList(Enumerable.Empty<SelectListItem>()), "Select Store", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-6 col-form-label">&nbsp;</label>
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" name="btnBack" value="Request" onclick="window.location.href='@Url.Action("Index", "Dashboard")'">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.get('@Url.Action("GetStoresDropDown","Sales")', function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var store = new Option(data[i].Name, data[i].Id);
+                $("#StoreId").append(store);
+            }
+        });
+    });
+    $("#StoreId").change(function () {
+        if ($("#StoreId").val() == "") {
+            alert("Please select store.");
+            return false;
+        }
+        window.location.href = '@Url.Action("StoreReceipts","Sales")?id=' + $("#StoreId").val();
+    });
+</script>

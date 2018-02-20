@@ -1,0 +1,42 @@
+﻿@model Lifvs.Common.ApiModels.SalesModel
+@{
+    ViewBag.Title = "Store Receipts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .ui-jqgrid-bdiv {
+        overflow-x: hidden !important;
+        max-width: 99.8%;
+    }
+
+    .ui-jqgrid .ui-jqgrid-hdiv {
+        max-width: 99.8%;
+    }
+
+    .ui-jqgrid .ui-jqgrid-pager {
+        max-width: 99.8%;
+    }
+</style>
+<script src="~/Scripts/ListJs/StoreReceipts.js"></script>
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <span style="float:right;margin-right: 1%;">
+            <button type="button" class="btn btn-primary btn-sm" name="btnCancel" value="Request" onclick="window.location.href='@Url.Action("Stores", "Sales")'">Back</button>
+        </span>
+    </div>
+</div>
+<br />
+<div class="row justify-content-md-center">
+    @Html.HiddenFor(m => m.StoreId)
+    <div class="col-md-12">
+        <table id="storeReceiptsGrid"></table>
+        <div id="pager"></div>
+    </div>
+</div>
+<script>
+    $(window).on("resize", function () {
+        var $grid = $("#storeReceiptsGrid"),
+            newWidth = $grid.closest(".ui-jqgrid").parent().width();
+        $grid.jqGrid("setGridWidth", newWidth, true);
+    });
+</script>

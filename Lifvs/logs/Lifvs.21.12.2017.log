@@ -1,0 +1,9 @@
+2017-12-21 11:17:05,792 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1;
+2017-12-21 16:14:33,640 DEBUG Lifvs - Executing following validateuseremail query: SELECT count(Id) FROM [User] WHERE Email=@emailId AND Active=1 AND IsVerified=1;
+2017-12-21 16:14:34,091 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+Email id does not exist.
+ Url : /api/recovery
+2017-12-21 16:14:34,093 ERROR Lifvs - Error in recover code for password. Error : Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-21 16:14:42,291 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Services.AccessTokenService.ValidateEmailAndSendCode(String emailId) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 168
+   at Lifvs.Controllers.AccessTokenController.Recovery(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 79

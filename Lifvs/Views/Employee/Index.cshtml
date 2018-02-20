@@ -1,0 +1,89 @@
+﻿@using Lifvs.Common.Utility
+@using Lifvs.Common.Enums
+@{
+    ViewBag.Title = "Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sessionUser = SessionRegistry.GetUserData();
+}
+<script src="~/Scripts/ListJs/Employee.js"></script>
+<style>
+    .ui-jqgrid-bdiv {
+        overflow-x: hidden !important;
+        max-width: 99.8%;
+    }
+
+    .ui-jqgrid .ui-jqgrid-hdiv {
+        max-width: 99.8%;
+    }
+
+    .ui-jqgrid .ui-jqgrid-pager {
+        max-width: 99.8%;
+    }
+</style>
+@if (sessionUser.RoleId == (int)Enums.Roles.SuperAdmin || sessionUser.RoleId == (int)Enums.Roles.Admin)
+{
+    <div class="row justify-content-md-center">
+        <div class="col-md-12">
+            <span style="float:right;margin-right: 1%;">
+                <button type="button" id="addNewEmployee" onclick="window.location.href='@Url.Action("Accept","Employee")'" title="Add New Employee" style="cursor:pointer;" class="btn btn-success btn-sm"><span style="float:right">Add Employee</span></button>
+                <button type="button" class="btn btn-primary btn-sm" name="btnCancel" value="Request" onclick="window.location.href='@Url.Action("Index", "Dashboard")'">Back</button>
+            </span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row justify-content-md-center">
+        <div class="col-md-12">
+            <span style="float:right;margin-right: 6%;">
+                <button type="button" class="btn btn-primary btn-sm" name="btnCancel" value="Request" onclick="window.location.href='@Url.Action("Index", "Dashboard")'">Back</button>
+            </span>
+        </div>
+    </div>
+}
+
+<br />
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <table id="gridEmployee"></table>
+        <div id="pager"></div>
+    </div>
+</div>
+<script>
+    $(window).on("resize", function () {
+        var $grid = $("#gridEmployee"),
+            newWidth = $grid.closest(".ui-jqgrid").parent().width();
+        $grid.jqGrid("setGridWidth", newWidth, true);
+    });
+    function ChangeRole() {
+        var row = $(this).closest('tr.jqgrow');
+        var rowId = row.attr('Id');
+        var dropDownRoleId = "" + rowId + "_RoleId";
+        var roleId = $("select[id=" + dropDownRoleId + "]").val();
+
+        if (typeof roleId === "undefined" || roleId == 0) {
+            alert('Select role');
+            return false;
+        }
+        var model = { RoleId: roleId, Id: rowId };
+        $.post('@Url.Action("UpdateEmployeeRole","Employee")', { model: model }, function (data) {
+            if (data == true) {
+                var msg = "Employee role changed successfully.";
+                window.location.href = '@Url.Action("Index","Employee")?msg=' + msg;
+            }
+        });
+    }
+    function DeleteEmployee() {
+        var con = confirm('Are you sure you want to delete?');
+        if (con == true) {
+            var grid = $("#gridEmployee"), rowId = $(this).closest('tr.jqgrow').attr('Id');
+            var cellData = grid.jqGrid('getCell', rowId, 'Id');
+            var id = parseInt(cellData);
+            window.location.href = '@Url.Action("DeleteEmployee","Employee")?id=' + id;
+        }
+        else {
+            return false;
+        }
+
+    }
+</script>

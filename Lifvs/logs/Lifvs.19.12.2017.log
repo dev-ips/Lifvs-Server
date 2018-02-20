@@ -1,0 +1,45 @@
+2017-12-19 12:52:39,641 DEBUG Lifvs - Executing following validateuseremail query: SELECT count(Id) FROM [User] WHERE Email=@emailId AND Active=1 AND Deleted=0;
+2017-12-19 12:53:40,460 DEBUG Lifvs - Executing following validateuseremail query: SELECT count(Id) FROM [User] WHERE Email=@emailId AND Active=1 AND Deleted=0;
+2017-12-19 12:54:38,808 DEBUG Lifvs - Executing following validateuseremail query: SELECT count(Id) FROM [User] WHERE Email=@emailId AND Active=1 AND Deleted=0;
+2017-12-19 14:55:16,513 DEBUG Lifvs - Executing following validateuseremail query: SELECT count(Id) FROM [User] WHERE Email=@emailId AND Active=1 AND Deleted=0;
+2017-12-19 14:58:01,709 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+'Recover Code' should not be empty.
+ Url : /api/changepassword
+2017-12-19 14:58:06,201 ERROR Lifvs - Error in change user password. Error : Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-19 14:58:15,238 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Helpers.ExceptionManager.ThrowException(HttpStatusCode status, String phrase, List`1 errorMessages) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Helpers\ExceptionManager.cs:line 66
+   at Lifvs.Common.Validators.ChangePasswordValidator.Validate(RecoveryCode input) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Validators\ChangePasswordValidator.cs:line 24
+   at Lifvs.Common.Services.AccessTokenService.ChangePassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 158
+   at Lifvs.Controllers.AccessTokenController.ChangePassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 96
+2017-12-19 14:59:38,748 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+Code has expired.
+ Url : /api/changepassword
+2017-12-19 14:59:40,233 ERROR Lifvs - Error in change user password. Error : Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-19 14:59:48,220 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Services.AccessTokenService.ChangePassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 171
+   at Lifvs.Controllers.AccessTokenController.ChangePassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 96
+2017-12-19 15:00:38,042 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+Invalid code.
+ Url : /api/changepassword
+2017-12-19 15:00:39,564 ERROR Lifvs - Error in change user password. Error : Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-19 15:00:47,586 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Services.AccessTokenService.ChangePassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 168
+   at Lifvs.Controllers.AccessTokenController.ChangePassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 96
+2017-12-19 16:44:42,401 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 16:44:55,756 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 16:51:30,182 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 16:51:30,529 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+The specified condition was not met for 'Password'.
+ Url : /api/register
+2017-12-19 16:51:32,196 ERROR Lifvs - ERROR IN REGISTER A NEW USER. Error :Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-19 16:51:41,682 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Helpers.ExceptionManager.ThrowException(HttpStatusCode status, String phrase, List`1 errorMessages) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Helpers\ExceptionManager.cs:line 66
+   at Lifvs.Common.Validators.UserRegistrationValidator.Validate(RegisterModel input) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Validators\UserRegistrationValidator.cs:line 28
+   at Lifvs.Common.Services.AccessTokenService.ValidateAndCreateUser(RegisterModel model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 90
+   at Lifvs.Controllers.AccessTokenController.Register(RegisterModel model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 51
+2017-12-19 17:24:45,675 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 17:28:01,634 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 17:29:31,239 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 17:34:34,642 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 17:52:31,587 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-19 18:42:51,073 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;

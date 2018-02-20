@@ -1,0 +1,118 @@
+﻿@model Lifvs.Common.ApiModels.AddStoreInventoryModel
+@using Lifvs.Common.Utility
+@{
+    ViewBag.Title = "AddStoreInventory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sessionUser = SessionRegistry.GetUserData();
+}
+
+@using (Html.BeginForm("AddStoreInventory", "StoreInventory", FormMethod.Post, new { @id = "frmStoreInventory" }))
+{
+    <div class="row justify-content-md-center">
+        <div class="col-sm-4">
+
+            <div class="form-group row">
+                @Html.LabelFor(m => m.StoreId, new { @class = "col-sm-4 col-form-label" })
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.StoreId, new SelectList(Enumerable.Empty<SelectListItem>()), "Select Store", new { @class = "form-control " })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.StoreId)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(m => m.InventoryId, new { @class = "col-sm-4 col-form-label" })
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.InventoryId, new SelectList(Enumerable.Empty<SelectListItem>()), "Select Inventory", new { @class = "form-control " })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.InventoryId)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(m=>m.NumberOfItems, new { @class = "col-sm-4 col-form-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.NumberOfItems, null, new { @class = "form-control " })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.NumberOfItems)</span>
+                </div>
+            </div>
+
+            
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">&nbsp;</label>
+                <div class="col-sm-8">
+                    <input type="submit" class="btn btn-primary" id="btnAdd" name="btnAdd" value="Save" />
+                    <button type="button" class="btn btn-primary" name="btnBack" value="Request" onclick="Back()">Back</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("FillDropDownData","StoreInventory")',
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'JSON',
+            success: function (response) {
+                if (response.success)
+                {
+                    for (var i = 0; i <= response.Stores.length - 1; i++)
+                    {
+                        var opt = new Option(response.Stores[i].Name, response.Stores[i].Id);
+                        $("#StoreId").append(opt);
+                    }
+                    $("#StoreId").val('@Model.StoreId');
+                    $("#StoreId").attr("disabled", true);
+                    for (var j = 0; j < response.Inventories.length; j++) {
+                        var opt = new Option(response.Inventories[j].Name, response.Inventories[j].Id);
+                        $("#InventoryId").append(opt);
+                    }
+                }
+            },
+            error: function ()
+            {
+                alert('Error in filling Store values');
+            }
+
+        });
+
+    });
+    function Back() {
+        var storeId='@TempData["StoreId"]';
+        window.location.href = '@Url.Action("StoreInventories","StoreInventory")?id=' + storeId;
+    }
+    $("#Inventory").on("change", function() {
+        var inventory = this.value;
+        var store = $("#Store").val();
+        
+        if ((store != null && store != 'undefined') && (inventory != null && inventory != 'undefined'))
+        {
+            $.ajax({
+                type: 'POST',
+                url: 'GetAvailableUnits/StoreInventory',
+                data: JSON.stringify({ storeId : store, inventoryId : inventory }),
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'JSON',
+                success: function (response)
+                {
+                    if (response.success) {
+                        $("#AvailableUnits").val(response.units);
+                    }
+                },
+                error: function () {
+                    alert('Error in calculating Available Units');
+                }
+            });
+        }
+        
+    });
+
+    $("#btnAdd").click(function () {
+        $("#StoreId").attr("disabled", false);
+        return true;
+    });
+
+</script>
+

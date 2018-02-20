@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Main View";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-sm-4 form-group">
+        <label class="control-label col-xs-5"></label>
+        <div class="col-sm-12">
+            <input type="submit" name="btnCustomerView" value="Customer View In Shop" class="btn btn-primary btn-block " id="btnCustomerView" />
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#btnCustomerView").click(function () {
+        window.location.href = '@Url.Action("Index", "CustomerShopView")';
+    });
+
+</script>

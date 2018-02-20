@@ -1,0 +1,85 @@
+2017-12-18 15:12:44,252 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-18 15:13:27,564 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-18 15:17:27,327 ERROR Lifvs - Error in verfiy login. Error : One or more errors occurred.
+2017-12-18 15:17:35,434 ERROR Lifvs - System.AggregateException: One or more errors occurred. ---> System.Data.SqlClient.SqlException: Cannot insert the value NULL into column 'Id', table 'Lifvs.dbo.AccessToken'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at StackExchange.Profiling.Data.ProfiledDbCommand.ExecuteDbDataReader(CommandBehavior behavior) in c:\TeamCity\buildAgent\work\a743336045964cbc\StackExchange.Profiling\Data\ProfiledDbCommand.cs:line 246
+   at System.Data.Common.DbCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1.ConfiguredTaskAwaiter.GetResult()
+   at Dapper.SqlMapper.<QueryMultipleAsync>d__55.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Lifvs.Common.Repositories.AccessTokenRepository.CreateToken(User audience, String tokenType)
+   at Lifvs.Common.Services.AccessTokenService.ValidateAndCreateAccessToken(AudienceCredentials credentials)
+   at Lifvs.Controllers.AccessTokenController.VerifyLogin(AudienceCredentials model) in D:\Gopen_Workspace\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 35
+---> (Inner Exception #0) System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'Id', table 'Lifvs.dbo.AccessToken'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at StackExchange.Profiling.Data.ProfiledDbCommand.ExecuteDbDataReader(CommandBehavior behavior) in c:\TeamCity\buildAgent\work\a743336045964cbc\StackExchange.Profiling\Data\ProfiledDbCommand.cs:line 246
+   at System.Data.Common.DbCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1.ConfiguredTaskAwaiter.GetResult()
+   at Dapper.SqlMapper.<QueryMultipleAsync>d__55.MoveNext()
+ClientConnectionId:8d0114a3-a5f1-4ee9-bde0-04dccffafc85
+Error Number:515,State:2,Class:16<---
+
+2017-12-18 15:17:54,777 DEBUG Lifvs - Excecuting validation User Query. Query : SELECT * FROM [User] WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-18 18:33:57,175 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-18 18:33:58,434 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+'EmailId' aleready exist with another person.
+ Url : /api/register
+2017-12-18 18:34:04,381 ERROR Lifvs - ERROR IN REGISTER A NEW USER. Error :Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-18 18:34:14,645 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Helpers.ExceptionManager.ThrowException(HttpStatusCode status, String phrase, List`1 errorMessages) in D:\Gopen_Workspace\Lifvs\Lifvs.Common\Helpers\ExceptionManager.cs:line 66
+   at Lifvs.Common.Validators.UserRegistrationValidator.Validate(RegisterModel input) in D:\Gopen_Workspace\Lifvs\Lifvs.Common\Validators\UserRegistrationValidator.cs:line 28
+   at Lifvs.Common.Services.AccessTokenService.ValidateAndCreateUser(RegisterModel model) in D:\Gopen_Workspace\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 79
+   at Lifvs.Controllers.AccessTokenController.Register(RegisterModel model) in D:\Gopen_Workspace\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 51
+2017-12-18 18:34:35,749 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-18 18:37:37,996 DEBUG Lifvs - Executing following validate user email query: SELECT COUNT(Id) FROM [User] WHERE Email=@email;
+2017-12-18 18:37:38,041 ERROR Lifvs - Message : Response Code:BadRequest(400); Errors:
+'Password' should not be empty.
+'Auth Id' should not be empty.
+'Auth Type' should not be empty.
+'Phone' should not be empty.
+'Card Number' should not be empty.
+'Expired Date' should not be empty.
+'CVV' should not be empty.
+ Url : /api/register
+2017-12-18 18:37:42,874 ERROR Lifvs - ERROR IN REGISTER A NEW USER. Error :Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+2017-12-18 18:37:50,079 ERROR Lifvs - System.Web.Http.HttpResponseException: Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.
+   at Lifvs.Common.Helpers.ExceptionManager.ThrowException(HttpStatusCode status, String phrase, List`1 errorMessages) in D:\Gopen_Workspace\Lifvs\Lifvs.Common\Helpers\ExceptionManager.cs:line 66
+   at Lifvs.Common.Validators.UserRegistrationValidator.Validate(RegisterModel input) in D:\Gopen_Workspace\Lifvs\Lifvs.Common\Validators\UserRegistrationValidator.cs:line 28
+   at Lifvs.Common.Services.AccessTokenService.ValidateAndCreateUser(RegisterModel model) in D:\Gopen_Workspace\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 79
+   at Lifvs.Controllers.AccessTokenController.Register(RegisterModel model) in D:\Gopen_Workspace\Lifvs\Lifvs\Controllers\AccessTokenController.cs:line 51

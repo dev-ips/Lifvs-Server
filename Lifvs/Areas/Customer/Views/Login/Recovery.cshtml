@@ -1,0 +1,129 @@
+﻿@model Lifvs.Common.ApiModels.RecoveryEmail
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Recovery</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/Content/css/sb-admin.min.css" rel="stylesheet" />
+
+    <style>
+        .container .card-header {
+            text-align: center;
+            border-bottom: 1px solid #004f91;
+        }
+
+        .bg-light {
+            background-color: #868e96 !important;
+        }
+
+        .container .auth-title {
+            color: #97A4B1;
+            padding: 20px;
+            line-height: 30px;
+            font-size: 26px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .logo {
+            display: inline-block;
+            width: 45px;
+            height: 25px;
+            vertical-align: middle;
+            margin-right: 5px;
+            position: relative;
+        }
+
+            .logo .l {
+                width: 11px;
+                height: 11px;
+                border-radius: 50%;
+                background-color: #004f91;
+                position: absolute;
+            }
+
+                .logo .l.l1 {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .logo .l.l2 {
+                    width: 7px;
+                    height: 7px;
+                    bottom: 13px;
+                    left: 10px;
+                }
+
+                .logo .l.l3 {
+                    width: 7px;
+                    height: 7px;
+                    bottom: 4px;
+                    left: 17px;
+                }
+
+                .logo .l.l4 {
+                    bottom: 13px;
+                    left: 25px;
+                }
+
+                .logo .l.l5 {
+                    bottom: 0;
+                    left: 34px;
+                }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Reset Password</div>
+            <div class="card-body">
+                <div class="text-center mt-4 mb-5">
+                    <h4>Forgot your password?</h4>
+                </div>
+                @using (Html.BeginForm("Recovery", "Login", FormMethod.Post, new { @id = "frmRecovery" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Email, new { @id = "exampleInputEmail1", @type = "email", @class = "form-control", @placeholder = "Enter email address" })
+                        <span style="color:red;">@Html.ValidationMessageFor(m => m.Email)</span>
+                        
+                    </div>
+                    <input type="submit" name="btnRecovery" id="btnRecovery" value="Recovery" class="btn btn-primary btn-block" />
+                }
+                <div class="col-sm-4 offset-sm-4 text-center">
+                    <a class="d-block small" href="@Url.Action("Index","Login")">Login Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+</html>
+@{
+    Scripts.Render("~/bundles/jqueryval");
+}
+<script>
+    $(document).ready(function () {
+
+        if ($('.alert-container').is(':visible')) {
+            setTimeout(function () {
+                $('.alert-container').fadeOut('fast');
+            }, 5000);
+        }
+    });
+</script>

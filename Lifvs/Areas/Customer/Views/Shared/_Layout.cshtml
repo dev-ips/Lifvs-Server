@@ -1,0 +1,113 @@
+﻿@using Lifvs.Common.Utility
+@{
+    string actionName = this.ViewContext.Controller.ControllerContext.RouteData.Values["action"].ToString();
+    string controllerName = this.ViewContext.Controller.ControllerContext.RouteData.Values["controller"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
+    <title>@ViewBag.Title - Lifvs</title>
+
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/sb-admin.css" rel="stylesheet" />
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
+    <link href="~/Content/rateit.css" rel="stylesheet" />
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Content/vendor/js/sb-admin.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+    <script src="~/Scripts/i18n/grid.locale-en.js"></script>
+    <script src="~/Scripts/jquery.jqGrid.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.js"></script>
+    <script src="~/Scripts/jquery.rateit.min.js"></script>
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    @*@Styles.Render("~/Content/css")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" style="width:100%;display:inline-block;">
+        @*<a href="@Url.Action("Index","Dashboard")"><img src="~/Images/login_logo.png" class="img-responsive" height="40" style="background-color:whitesmoke;cursor:pointer;" /></a>*@
+        <a class="navbar-brand" href="@Url.Action("Index","Dashboard")">Lifvs</a>
+
+        @if (SessionRegistry.GetUserData() != null)
+            {
+           
+            <a href="@Url.Action("Logout","Login")" class="nav-link" style="float:right;color:#fff;cursor:pointer;">
+                <i class="fa fa-fw fa-sign-out"></i>Logout
+            </a>
+            <a href="#" class="nav-link" style="float:right;color:#fff;cursor:pointer;">
+                @SessionRegistry.GetUserData().Email
+            </a>
+        }
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Index",controllerName)">@controllerName</a>
+                </li>
+                <li class="breadcrumb-item active">@actionName</li>
+            </ol>
+
+            <div class="col-md-12">
+                @Html.Partial("_Alerts")
+            </div>
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © Lifvs @DateTime.Now.Year</small>
+            </div>
+        </div>
+    </footer>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="@Url.Action("Logout","Login")">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+
+        if ($('.alert-container').is(':visible')) {
+            $('.close').click(function () {
+                $('.alert-container').fadeOut('fast')
+            })
+            setTimeout(function () {
+                $('.alert-container').fadeOut('fast');
+            }, 5000);
+        }
+    });
+</script>

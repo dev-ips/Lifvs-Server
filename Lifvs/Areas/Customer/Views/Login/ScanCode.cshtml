@@ -1,0 +1,165 @@
+﻿@model Lifvs.Common.ApiModels.ScanStoreModel
+@{
+    ViewBag.Title = "Scan Code";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
+    <title>Lifvs</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/Content/css/sb-admin.min.css" rel="stylesheet" />
+    <style>
+        .container .card-header {
+            text-align: center;
+            border-bottom: 1px solid #004f91;
+        }
+
+        .bg-light {
+            background-color: #868e96 !important;
+        }
+
+        .container .auth-title {
+            color: #97A4B1;
+            padding: 20px;
+            line-height: 30px;
+            font-size: 26px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .logo {
+            display: inline-block;
+            width: 45px;
+            height: 25px;
+            vertical-align: middle;
+            margin-right: 5px;
+            position: relative;
+        }
+
+            .logo .l {
+                width: 11px;
+                height: 11px;
+                border-radius: 50%;
+                background-color: #004f91;
+                position: absolute;
+            }
+
+                .logo .l.l1 {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .logo .l.l2 {
+                    width: 7px;
+                    height: 7px;
+                    bottom: 13px;
+                    left: 10px;
+                }
+
+                .logo .l.l3 {
+                    width: 7px;
+                    height: 7px;
+                    bottom: 4px;
+                    left: 17px;
+                }
+
+                .logo .l.l4 {
+                    bottom: 13px;
+                    left: 25px;
+                }
+
+                .logo .l.l5 {
+                    bottom: 0;
+                    left: 34px;
+                }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <header class="card-header">
+                <h1 class="auth-title">Lifvs Webview</h1>
+            </header>
+
+            <div class="card-body">
+                <p class="text-center"></p>
+                <div id="logo-container">
+                    @Html.Partial("_Alerts")
+                </div>
+                @using (Html.BeginForm("ScanCode", "Login", FormMethod.Post, new { @id = "frmScanCode" }))
+                {
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Scan Code</label>
+                        @Html.TextBoxFor(m => m.QRCode, new { @type = "password", @placeholder = "Scan Code", @class = "form-control", @readonly = true })
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Login" id="login" name="login" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+</html>
+@{
+    Scripts.Render("~/bundles/jqueryval");
+}
+<script>
+    var barCode = "";
+    $("#login").attr("disabled", true);
+    $("#QRCode").focus();
+    $(document).ready(function () {
+        if ($('.alert-container').is(':visible')) {
+            $('.close').click(function () {
+                $('.alert-container').fadeOut('fast');
+            })
+            setTimeout(function () {
+                $('.alert-container').fadeOut('fast');
+            }, 5000);
+        }
+
+        $(window).keypress(function (e) {
+            barCode += String.fromCharCode(e.which);
+            console.log(barCode);
+
+            if (barCode.length >= 36) {
+                CheckLogin();
+            }
+        });
+    });
+    function CheckLogin() {
+        if (barCode.length >= 36) {
+            //var avgTime = ((endTime - startTime) / barCode.length + 1);
+            $("#QRCode").focus();
+            $("#QRCode").val(barCode);
+            $("#login").attr("disabled", false);
+            $("#login").focus();
+            $("#login").click();
+        }
+        clearValues();
+    };
+    function clearValues() {
+        barCode = "";
+        firstInput = true;
+        startTime = endTime;
+    }
+    $("#QRCode").focusout(function () {
+        $("#QRCode").focus();
+    });
+</script>

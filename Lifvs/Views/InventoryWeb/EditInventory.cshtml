@@ -1,0 +1,128 @@
+﻿@model Lifvs.Common.ApiModels.InventoryAddModel
+@using Lifvs.Common.Utility
+
+@{
+    ViewBag.Title = "AddInventory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sessionUser = SessionRegistry.GetUserData();
+}
+
+@using (Html.BeginForm("EditInventory", "InventoryWeb", FormMethod.Post, new { @id = "frmAddInventory", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m=>m.FileUrl)
+    <div class="row justify-content-md-center">
+
+        <div class="col-sm-4">
+
+            <div class="form-group row">
+                @Html.LabelFor(m => m.BrandName, new { @class = "col-sm-4 col-form-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.BrandName, new { @placeholder = "Brand Name", @class = "form-control " })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.BrandName)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(m => m.Name, new { @class = "col-sm-4 col-form-label" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Name, new { @placeholder = "Inventory Name", @class = "form-control" })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.Name)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Scanned Code</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.InventoryCode, new { @placeholder = "Inventory Code", @class = "form-control" })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.InventoryCode)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Volume</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Volume, new { @placeholder = "Volume", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">VolumeType</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.VolumeType, new { @placeholder = "Volume Type", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Supplier</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Supplier, new { @placeholder = "Supplier", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">InPrice</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.InPrice, new { @placeholder = "In Price", @class = "form-control" })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.InPrice)</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">OutPrice</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.OutPriceIncVat, new { @placeholder = "Out Price Inc Vat", @class = "form-control" })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.OutPriceIncVat)</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">REA</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.REA, new { @placeholder = "Reduce Price", @class = "form-control" })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.REA)</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Specification</label>
+                <div class="col-sm-8">
+                    @Html.TextAreaFor(m => m.Specification, 3, 3, new { @placeholder = "Specification", @class = "form-control" })
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.Specification)</span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                @Html.LabelFor(m => m.ImagePath, new { @class = "col-sm-4 col-form-label" })
+                <div class="col-sm-8">
+                    <img @(string.IsNullOrWhiteSpace(Model.ImagePath)? string.Empty : "src=" + Model.ImagePath.Replace("~","..")) alt="No Image" style="height:50%;width:50%;" id="attachment" name="attachment" /><br />
+                    <input type="file" id="imagePath" name="imagePath" style="padding-top:5px;" value="@Model.FileUrl" onchange="validateAttachment(this.value)" />
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.ImagePath)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">&nbsp;</label>
+                <div class="col-sm-8">
+                    <input type="submit" class="btn btn-primary" name="btnAdd" value="Save" />
+                    <button type="button" class="btn btn-primary" name="btnBack" value="Request" onclick="window.location.href='@Url.Action("Index", "InventoryWeb")'">Back</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#FileUrl').val('@Model.ImagePath');
+    });
+
+    function validateAttachment(file)
+    {
+        var ext = file.split(".");
+        ext = ext[ext.length - 1].toLowerCase();
+        var arrayExtensions = ["jpg", "jpeg", "png", "bmp", "gif"];
+
+        if (arrayExtensions.lastIndexOf(ext) == -1) {
+            alert("Wrong extension type.");
+            $("#imagePath").val("");
+        }
+    }
+
+</script>

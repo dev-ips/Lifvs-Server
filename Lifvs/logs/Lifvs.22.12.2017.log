@@ -1,0 +1,31 @@
+2017-12-22 12:24:12,730 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 12:24:38,831 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 15:01:36,516 ERROR Lifvs - Error occured during email recovery. Error : Error parsing column 11 (ModifiedDate=11/21/2017 12:02:20 PM - DateTime)
+2017-12-22 15:01:53,170 ERROR Lifvs - System.Data.DataException: Error parsing column 11 (ModifiedDate=11/21/2017 12:02:20 PM - DateTime) ---> System.InvalidCastException: Invalid cast from 'DateTime' to 'Int64'.
+   at System.DateTime.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType)
+   at Deserializefdbb4636-0161-49bc-96bb-10d8edabe3bc(IDataReader )
+   --- End of inner exception stack trace ---
+   at Dapper.SqlMapper.ThrowDataException(Exception ex, Int32 index, IDataReader reader, Object value)
+   at Deserializefdbb4636-0161-49bc-96bb-10d8edabe3bc(IDataReader )
+   at Dapper.SqlMapper.<QueryImpl>d__136`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at Lifvs.Common.Repositories.AccessTokenRepository.GetWebUserByEmail(String emailId) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Repositories\AccessTokenRepository.cs:line 280
+   at Lifvs.Common.Services.AccessTokenService.ValidateWebEmailAndSendCode(String emailId) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 276
+   at Lifvs.Controllers.LoginController.Recovery(RecoveryEmail model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\LoginController.cs:line 70
+2017-12-22 15:47:10,560 ERROR Lifvs - Error in changing web user password. Error : Code has expired.
+2017-12-22 15:47:15,913 ERROR Lifvs - System.Exception: Code has expired.
+   at Lifvs.Common.Services.AccessTokenService.ChangeWebPassword(RecoveryCode model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs.Common\Services\AccessTokenService.cs:line 307
+   at Lifvs.Controllers.LoginController.ChangePassword(ChangePassword model) in D:\Gopen_Workspace\LifvsProject\lifvs.server\Lifvs\Lifvs\Controllers\LoginController.cs:line 102
+2017-12-22 15:56:02,669 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 15:56:16,650 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 15:56:45,307 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 16:01:05,470 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 16:01:40,327 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 17:20:39,473 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 18:43:38,626 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 18:46:20,303 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
+2017-12-22 18:54:19,303 DEBUG Lifvs - Executing following validate web user credential query: SELECT * FROM WebUser WHERE Email=@email AND Password=@password AND Active=1 AND Deleted=0;
